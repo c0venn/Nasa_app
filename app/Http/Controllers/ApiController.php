@@ -22,4 +22,7 @@ class ApiController extends Controller
     public function instruments(){
         return $this->nasaProvider->instruments();
     }
+    public function activityid(){
+        return $this->nasaProvider->activityid();
+    }
 }
