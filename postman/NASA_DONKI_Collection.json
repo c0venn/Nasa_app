@@ -1,0 +1,90 @@
+{
+    "info": {
+        "_postman_id": "1234567-89ab-cdef-0123-456789abcdef",
+        "name": "NASA DONKI API",
+        "description": "Colección de endpoints para la API de NASA DONKI",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Listar Proyectos NASA",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://127.0.0.1:8000/api/nasa",
+                    "protocol": "http",
+                    "host": ["127", "0", "0", "1"],
+                    "port": "8000",
+                    "path": ["api", "nasa"]
+                },
+                "description": "Obtiene la lista de todos los servicios DONKI de NASA disponibles"
+            }
+        },
+        {
+            "name": "Obtener Todos los Instrumentos",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://127.0.0.1:8000/api/instruments",
+                    "protocol": "http",
+                    "host": ["127", "0", "0", "1"],
+                    "port": "8000",
+                    "path": ["api", "instruments"]
+                },
+                "description": "Obtiene todos los instrumentos utilizados en los diferentes servicios"
+            }
+        },
+        {
+            "name": "Obtener IDs de Actividad",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://127.0.0.1:8000/api/activityid",
+                    "protocol": "http",
+                    "host": ["127", "0", "0", "1"],
+                    "port": "8000",
+                    "path": ["api", "activityid"]
+                },
+                "description": "Obtiene los IDs de actividad asociados con cada servicio"
+            }
+        },
+        {
+            "name": "Obtener Estadísticas de Uso de Instrumentos",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://127.0.0.1:8000/api/instruments-use",
+                    "protocol": "http",
+                    "host": ["127", "0", "0", "1"],
+                    "port": "8000",
+                    "path": ["api", "instruments-use"]
+                },
+                "description": "Obtiene el porcentaje de uso de cada instrumento en todos los servicios"
+            }
+        },
+        {
+            "name": "Obtener Desglose de Actividad por Instrumento",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://127.0.0.1:8000/api/instrument-usage",
+                    "protocol": "http",
+                    "host": ["127", "0", "0", "1"],
+                    "port": "8000",
+                    "path": ["api", "instrument-usage"]
+                },
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"instrument\": \"MODEL: SWMF\"\n}"
+                },
+                "description": "Obtiene el desglose porcentual de uso de un instrumento específico"
+            }
+        }
+    ]
+} 

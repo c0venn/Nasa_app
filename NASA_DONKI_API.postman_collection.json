@@ -1,0 +1,97 @@
+{
+	"info": {
+		"_postman_id": "your-postman-id",
+		"name": "NASA DONKI API",
+		"description": "Collection for testing the NASA DONKI API integration",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "List NASA Projects",
+			"request": {
+				"method": "GET",
+				"url": "http://127.0.0.1:8000/api/nasa"
+			}
+		},
+		{
+			"name": "Get All Instruments",
+			"request": {
+				"method": "GET",
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/instruments?startDate=2025-02-01&endDate=2025-02-28",
+					"host": ["127.0.0.1:8000"],
+					"path": ["api", "instruments"],
+					"query": [
+						{
+							"key": "startDate",
+							"value": "2025-02-01"
+						},
+						{
+							"key": "endDate",
+							"value": "2025-02-28"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "Get Activity IDs",
+			"request": {
+				"method": "GET",
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/activityid?startDate=2025-02-01&endDate=2025-02-28",
+					"host": ["127.0.0.1:8000"],
+					"path": ["api", "activityid"],
+					"query": [
+						{
+							"key": "startDate",
+							"value": "2025-02-01"
+						},
+						{
+							"key": "endDate",
+							"value": "2025-02-28"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "Get Instruments Usage Statistics",
+			"request": {
+				"method": "GET",
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/instruments-use?startDate=2025-02-01&endDate=2025-02-28",
+					"host": ["127.0.0.1:8000"],
+					"path": ["api", "instruments-use"],
+					"query": [
+						{
+							"key": "startDate",
+							"value": "2025-02-01"
+						},
+						{
+							"key": "endDate",
+							"value": "2025-02-28"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "Get Instrument Activity Breakdown",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"instrument\": \"MODEL: SWMF\",\n    \"startDate\": \"2025-02-01\",\n    \"endDate\": \"2025-02-28\"\n}"
+				},
+				"url": "http://127.0.0.1:8000/api/instrument-usage"
+			}
+		}
+	]
+} 

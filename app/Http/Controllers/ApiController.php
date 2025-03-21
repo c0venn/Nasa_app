@@ -21,27 +21,42 @@ class ApiController extends Controller
         return $this->nasaProvider->GetProjects();
     }
 
-    public function instruments()
+    public function instruments(Request $request)
     {
-        return $this->nasaProvider->instruments();
+        return $this->nasaProvider->instruments(
+            $request->query('startDate'),
+            $request->query('endDate')
+        );
     }
 
-    public function activityid()
+    public function activityid(Request $request)
     {
-        return $this->nasaProvider->activityid();
+        return $this->nasaProvider->activityid(
+            $request->query('startDate'),
+            $request->query('endDate')
+        );
     }
 
-    public function instrumentsUse()
+    public function instrumentsUse(Request $request)
     {
-        return $this->nasaProvider->instrumentPercentages();
+        return $this->nasaProvider->instrumentPercentages(
+            $request->query('startDate'),
+            $request->query('endDate')
+        );
     }
 
     public function getInstrumentUsage(Request $request)
     {
         $request->validate([
-            'instrument' => 'required|string'
+            'instrument' => 'required|string',
+            'startDate' => 'nullable|date_format:Y-m-d',
+            'endDate' => 'nullable|date_format:Y-m-d'
         ]);
 
-        return $this->nasaProvider->getInstrumentUsagePercentage($request->input('instrument'));
+        return $this->nasaProvider->getInstrumentUsagePercentage(
+            $request->input('instrument'),
+            $request->input('startDate'),
+            $request->input('endDate')
+        );
     }
 }
