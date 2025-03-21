@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Contracts\NasaServiceInterface;
+use App\Services\NasaService;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Http\Request;
@@ -13,9 +15,7 @@ class AppServiceProvider extends ServiceProvider
     
     public function register(): void
     {
-        $this->app->singleton(NasaProvider::class, function ($app) {
-            return new NasaProvider();
-        });
+        $this->app->bind(NasaServiceInterface::class, NasaService::class);
     }
 
    

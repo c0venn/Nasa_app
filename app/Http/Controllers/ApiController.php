@@ -3,46 +3,45 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Routing\Controller;
-use App\Providers\NasaProvider;
+use App\Contracts\NasaServiceInterface;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
-    private $nasaProvider;
+    private NasaServiceInterface $nasaService;
 
-    public function __construct(NasaProvider $nasaProvider)
+    public function __construct(NasaServiceInterface $nasaService)
     {
-        $this->nasaProvider = $nasaProvider;
-        $this->middleware('throttle:nasa-api');
+        $this->nasaService = $nasaService;
     }
 
-    public function index()
+    public function nasa()
     {
-        return $this->nasaProvider->GetProjects();
+        return response()->json($this->nasaService->getProjects());
     }
 
     public function instruments(Request $request)
     {
-        return $this->nasaProvider->instruments(
+        return response()->json($this->nasaService->getInstruments(
             $request->query('startDate'),
             $request->query('endDate')
-        );
+        ));
     }
 
     public function activityid(Request $request)
     {
-        return $this->nasaProvider->activityid(
+        return response()->json($this->nasaService->getActivityIds(
             $request->query('startDate'),
             $request->query('endDate')
-        );
+        ));
     }
 
     public function instrumentsUse(Request $request)
     {
-        return $this->nasaProvider->instrumentPercentages(
+        return response()->json($this->nasaService->getInstrumentPercentages(
             $request->query('startDate'),
             $request->query('endDate')
-        );
+        ));
     }
 
     public function getInstrumentUsage(Request $request)
@@ -50,13 +49,13 @@ class ApiController extends Controller
         $request->validate([
             'instrument' => 'required|string',
             'startDate' => 'nullable|date_format:Y-m-d',
-            'endDate' => 'nullable|date_format:Y-m-d'
+            'endDate' => 'nullable|date_format:Y-m-d|after_or_equal:startDate'
         ]);
 
-        return $this->nasaProvider->getInstrumentUsagePercentage(
+        return response()->json($this->nasaService->getInstrumentUsagePercentage(
             $request->input('instrument'),
             $request->input('startDate'),
             $request->input('endDate')
-        );
+        ));
     }
 }
