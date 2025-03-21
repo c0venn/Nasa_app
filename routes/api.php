@@ -1,19 +1,12 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiController;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
-
-Route::get('/nasa', [ApiController::class, 'index']);
-
-Route::get('/instruments', [ApiController::class, 'instruments']);
-
-Route::get('/activityid', [ApiController::class, 'activityid']);
-
-Route::get('/instruments-use', [ApiController::class, 'instrumentsUse']);
-
-Route::get('/instruments-activity', [ApiController::class, 'instrumentsActivity']);
+Route::middleware(['throttle:nasa-api'])->group(function () {
+    Route::get('/nasa', [ApiController::class, 'index']);
+    Route::get('/instruments', [ApiController::class, 'instruments']);
+    Route::get('/activityid', [ApiController::class, 'activityid']);
+    Route::get('/instruments-use', [ApiController::class, 'instrumentsUse']);
+    Route::post('/instrument-usage', [ApiController::class, 'getInstrumentUsage']);
+});
